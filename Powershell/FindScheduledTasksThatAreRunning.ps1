@@ -1,0 +1,1 @@
+(get-scheduledtask).where({$_.state -eq 'running'}) 

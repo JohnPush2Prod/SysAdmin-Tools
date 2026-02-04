@@ -1,0 +1,1 @@
+"C:\Backup\EntraBackup\$((Get-Date).ToString('yyyy-MM-dd'))"
