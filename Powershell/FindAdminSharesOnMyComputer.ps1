@@ -1,0 +1,1 @@
+Gwmi Win32_Share|%{"\\$($_|% P*e)\$($_.Name)"}
