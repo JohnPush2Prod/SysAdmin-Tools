@@ -1,4 +1,29 @@
-﻿# Define variables
+﻿#=============================================================================================================================
+#
+# Script Name:     Intune_Backup.ps1
+#
+# Description:     Creates a dated backup directory and performs a full export of Entra ID (Azure AD) / Intune configuration
+#                  using Microsoft Graph with Service Principal (client credentials) authentication. The script installs/
+#                  updates required modules, authenticates via MSAL to acquire a Graph access token, connects to Graph
+#                  with that token, and runs Export-Entra to write the backup into C:\Backup\IntuneBackup\<yyyy-MM-dd>.
+#
+# Notes:           • Replace the placeholders for $tenantID, $clientID, and $clientSecret with your app registration values.
+#                  • The Service Principal must have sufficient Graph app permissions (Application) granted and admin-consented
+#                    for the resources being exported (e.g., Policy.Read.All, Device.Read.All, Directory.Read.All, etc.),
+#                    as required by IntuneBackupAndRestore/Export-Entra scope in your environment.
+#                  • The script sets the process Execution Policy to Unrestricted; adjust if your org policy requires otherwise.
+#                  • Requires modules: Microsoft.Graph.Intune, MSGraphFunctions, AzureAD, IntuneBackupAndRestore (auto-install/
+#                    update is included). Ensure the host has internet access and permission to install/update modules.
+#                  • Backups are written to $backupPath (daily folder). Verify disk space and permissions on C:\Backup.
+#                  • Do not echo secrets in logs; keep $clientSecret secured. Prefer using a secure secret store or managed
+#                    identity where applicable. Review logging before sharing outputs externally.
+#                  • Token is acquired via MSAL (client credentials flow) and passed to Connect-MgGraph. If token retrieval
+#                    fails, the script exits safely without partial export.
+#                  • Export-Entra -All performs a broad export; tailor scope or paths if you need a smaller or segmented backup.
+#
+#=============================================================================================================================
+
+# Define variables
 $backupPath = "C:\Backup\IntuneBackup\$((Get-Date).ToString('yyyy-MM-dd'))"
 $tenantID = ''  # Replace with your actual Tenant ID
 $clientID = ''  # Replace with your Application (client) ID

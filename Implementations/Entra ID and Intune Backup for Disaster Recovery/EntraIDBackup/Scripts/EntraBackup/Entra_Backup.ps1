@@ -1,4 +1,27 @@
-﻿# Define variables
+﻿#=============================================================================================================================
+#
+# Script Name:     Entra_Backup.ps1
+#
+# Description:     Creates a dated backup directory and performs a full Entra ID (Azure AD) export using the EntraExporter
+#                  module and Service Principal (client credentials) authentication. The script installs required modules,
+#                  authenticates with MSAL to acquire an access token, connects to Microsoft Graph, and runs Export-Entra
+#                  to output the backup into C:\Backup\EntraBackup\<yyyy-MM-dd>.
+#
+# Notes:           • Replace $tenantID, $clientID, and $clientSecret with your App Registration values.
+#                  • Ensure the Service Principal has the necessary Graph **Application** permissions (Directory.Read.All,
+#                    Policy.Read.All, Device.Read.All, etc.) and that admin consent has been granted.
+#                  • Requires modules: MSAL.PS, Microsoft.Graph.Authentication, EntraExporter (auto-installed in script).
+#                  • Access token is acquired via MSAL and passed into Connect-MgGraph; if token acquisition fails, the
+#                    script exits safely without performing an export.
+#                  • Backup directory is created automatically under the specified path with the current date. Confirm that
+#                    the host has permissions to create/modify folders under C:\Backup.
+#                  • Keep client secrets secure—avoid logging or exposing values. Consider Azure Key Vault or Managed
+#                    Identity alternatives if you later migrate this process to an automation account or VM.
+#                  • Export-Entra -All performs a full directory export; adjust scope as needed for partial exports.
+#
+#=============================================================================================================================
+
+# Define variables
 $backupPath = "C:\Backup\EntraBackup\$((Get-Date).ToString('yyyy-MM-dd'))"
 $tenantID = ''  # Replace with your actual Tenant ID
 $clientID = ''  # Replace with your Application (client) ID
