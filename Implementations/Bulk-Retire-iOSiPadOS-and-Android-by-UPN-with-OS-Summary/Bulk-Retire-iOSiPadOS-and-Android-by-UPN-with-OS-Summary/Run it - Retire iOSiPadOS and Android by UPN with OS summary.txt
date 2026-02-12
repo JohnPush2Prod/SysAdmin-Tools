@@ -1,0 +1,26 @@
+------------------------BEFORE YOU RUN-------------------------
+ 
+#Navegate to the folder with the Retire-ByUPN-Mobile.ps1 script 
+cd "Your.folder.path.here"
+
+# End any current Graph session (ignore errors)
+Disconnect-MgGraph 2>$null
+# Remove cached tokens/context so we get a *fresh* consent + token
+Remove-Item "$env:USERPROFILE\.graph" -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item "$env:LOCALAPPDATA\Microsoft\TokenBroker" -Recurse -Force -ErrorAction SilentlyContinue
+#Sign-In and Connect to Graph
+Connect-MgGraph -TenantId "" -NoWelcome -Scopes "DeviceManagementManagedDevices.PrivilegedOperations.All","DeviceManagementManagedDevices.ReadWrite.All","Directory.Read.All"
+
+------------------------RUN OPTIONS-------------------------
+
+# Dry-run (preview only) including iOS, iPadOS, and Android (-DryRun can be used with any of the following run options)
+.\Retire-ByUPN-Mobile.ps1 -InputCsvPath .\upns.csv -DryRun
+
+# Execute retire and write both logs
+.\Retire-ByUPN-Mobile.ps1 -InputCsvPath .\upns.csv -OutputLogPath .\retire-mobile-log.csv -OutputSummaryPath .\retire-mobile-summary.csv
+
+# Optional: exclude Android
+.\Retire-ByUPN-Mobile.ps1 -InputCsvPath .\upns.csv -IncludeAndroid:$false
+
+# Optional guardrail: skip devices that checked in within the last 7 days
+.\Retire-ByUPN-Mobile.ps1 -InputCsvPath .\upns.csv -MinDaysSinceLastSync 7 -DryRun
