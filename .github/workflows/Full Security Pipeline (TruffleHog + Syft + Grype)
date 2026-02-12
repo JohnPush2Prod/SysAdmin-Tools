@@ -1,0 +1,74 @@
+name: Full Security Pipeline (TruffleHog + Syft + Grype)
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 3 * * *"   # Nightly 3 AM UTC full repo scan
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  scan:
+    name: Full Security Scan (TruffleHog + Syft + Grype)
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository (full history, no credentials)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # -----------------------------
+      # TruffleHog secret scanning
+      # -----------------------------
+      - name: Install TruffleHog
+        run: |
+          pip install trufflehog
+
+      - name: Run TruffleHog Secret Scan
+        run: |
+          trufflehog filesystem . --only-verified --fail > trufflehog-results.txt || true
+
+      - name: Upload TruffleHog results
+        uses: actions/upload-artifact@v4
+        with:
+          name: trufflehog-results
+          path: trufflehog-results.txt
+
+      # -----------------------------
+      # Syft SBOM generation
+      # -----------------------------
+      - name: Install Syft
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/syft/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Generate SBOM (Syft)
+        run: |
+          syft . -o json > sbom.json
+
+      - name: Upload SBOM
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.json
+
+      # -----------------------------
+      # Grype vulnerability scan
+      # -----------------------------
+      - name: Install Grype
+        run: |
+          curl -sSfL https://raw.githubusercontent.com/anchore/grype/main/install.sh | sh -s -- -b /usr/local/bin
+
+      - name: Run Grype scan
+        run: |
+          grype sbom:sbom.json -o json > grype-results.json || true
+
+      - name: Upload Grype results
+        uses: actions/upload-artifact@v4
+        with:
+          name: grype-results
+          path: grype-results.json
