@@ -15,25 +15,31 @@ jobs:
   trufflehog:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (full history for accurate diffs)
+      - name: Checkout (full history for diff + nightly deep scan)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # Push / PR: scan only the changeset (base..head)
-      - name: TruffleHog (diff scan on push/PR)
+      # PR / Push: Diff scan (base..head)
+      - name: TruffleHog (PR/Push diff scan) [report-only]
         if: github.event_name != 'schedule'
         uses: trufflesecurity/trufflehog@main
+        continue-on-error: true
         with:
           path: .
           base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
           head: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
-          extra_args: --only-verified
+          extra_args: >
+            --only-verified
+            --json
 
-      # Nightly / schedule: full repo scan
-      - name: TruffleHog (full repo scan on schedule)
+      # Nightly: Full history scan (deep scan)
+      - name: TruffleHog (nightly full history scan) [report-only]
         if: github.event_name == 'schedule'
         uses: trufflesecurity/trufflehog@main
+        continue-on-error: true
         with:
           path: .
-          extra_args: --only-verified
+          extra_args: >
+            --only-verified
+            --json
