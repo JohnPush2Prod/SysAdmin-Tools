@@ -1,0 +1,9 @@
+
+# Fake secrets for TruffleHog testing 
+
+AWS_ACCESS_KEY_ID=AKIAIOSFODNN7EXAMPLE
+AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+
+GITHUB_TOKEN=ghp_1234567890abcdefghijklmnopqrstuvwxyz
+
+DATABASE_URL=postgres://dbuser:dbpassword@localhost:5432/appdb
