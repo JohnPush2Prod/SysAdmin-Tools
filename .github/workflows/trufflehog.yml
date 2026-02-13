@@ -32,6 +32,7 @@ jobs:
           extra_args: >
             --only-verified
             --json
+            --fail
 
       # Nightly: Full history scan (deep scan)
       - name: TruffleHog (nightly full history scan) [report-only]
