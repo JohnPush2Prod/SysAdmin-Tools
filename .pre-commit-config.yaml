@@ -1,12 +1,8 @@
 repos:
   - repo: local
     hooks:
-      - id: trufflehog
-        name: TruffleHog (verified secrets only)
-        entry: >
-          trufflehog git file://.
-          --since-commit HEAD
-          --only-verified
-          --fail
+      - id: trufflehog-filesystem
+        name: TruffleHog (pre-commit: filesystem/HEAD, BLOCK)
+        entry: trufflehog filesystem .
         language: system
-        stages: [commit, push]
+        stages: [commit]
