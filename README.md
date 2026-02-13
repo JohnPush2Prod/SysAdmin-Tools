@@ -6,10 +6,12 @@ Useful scripts, tools, and documentation for SystemsAdministrators
 
 This repository enforces secret scanning using TruffleHog.
 
-Before contributing, you **must** install pre-commit hooks:
+## Developer Setup (Required)
 
-```bash
+This repository prevents secrets from being committed or pushed.
+
+### One-time setup
+```powershell
 pip install pre-commit
-pre-commit install
-pre-commit install --hook-type pre-push
+.\scripts\bootstrap-hooks.ps1
 
