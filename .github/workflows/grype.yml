@@ -27,4 +27,3 @@ jobs:
           path: .
           fail-build: true
           severity-cutoff: high
-``
