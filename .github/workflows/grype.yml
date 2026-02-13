@@ -1,0 +1,30 @@
+name: Vulnerability Scan (Grype)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * *"   # nightly (offset from Syft)
+
+permissions:
+  contents: read
+
+jobs:
+  grype:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan repository with Grype
+        uses: anchore/scan-action@v3
+        with:
+          path: .
+          fail-build: true
+          severity-cutoff: high
+``
