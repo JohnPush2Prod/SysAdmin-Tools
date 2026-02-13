@@ -12,4 +12,4 @@ Before contributing, you **must** install pre-commit hooks:
 pip install pre-commit
 pre-commit install
 pre-commit install --hook-type pre-push
-``
+
