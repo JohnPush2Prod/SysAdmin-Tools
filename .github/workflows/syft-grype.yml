@@ -6,7 +6,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: "0 3 * * *"
+    - cron: "0 4 * * *"   # nightly
 
 permissions:
   contents: read
@@ -19,6 +19,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Generate SBOM
         uses: anchore/sbom-action@v0
