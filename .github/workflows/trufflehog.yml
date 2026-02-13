@@ -1,0 +1,39 @@
+name: TruffleHog Secret Scan
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 2 * * *"   # nightly
+
+permissions:
+  contents: read
+
+jobs:
+  trufflehog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (full history for accurate diffs)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # Push / PR: scan only the changeset (base..head)
+      - name: TruffleHog (diff scan on push/PR)
+        if: github.event_name != 'schedule'
+        uses: trufflesecurity/trufflehog@v3
+        with:
+          path: .
+          base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
+          head: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
+          extra_args: --github-actions --fail --no-update
+
+      # Nightly / schedule: full repo scan
+      - name: TruffleHog (full repo scan on schedule)
+        if: github.event_name == 'schedule'
+        uses: trufflesecurity/trufflehog@v3
+        with:
+          path: .
+          extra_args: --github-actions --fail --no-update
