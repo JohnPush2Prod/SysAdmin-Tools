@@ -43,3 +43,4 @@ jobs:
           extra_args: >
             --only-verified
             --json
+            --fail
