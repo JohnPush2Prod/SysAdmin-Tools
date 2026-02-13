@@ -23,17 +23,17 @@ jobs:
       # Push / PR: scan only the changeset (base..head)
       - name: TruffleHog (diff scan on push/PR)
         if: github.event_name != 'schedule'
-        uses: trufflesecurity/trufflehog@v3
+        uses: trufflesecurity/trufflehog@main
         with:
           path: .
           base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
           head: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
-          extra_args: --github-actions --fail --no-update
+          extra_args: --github-actions --only-verified --fail --no-update
 
       # Nightly / schedule: full repo scan
       - name: TruffleHog (full repo scan on schedule)
         if: github.event_name == 'schedule'
-        uses: trufflesecurity/trufflehog@v3
+        uses: trufflesecurity/trufflehog@main
         with:
           path: .
-          extra_args: --github-actions --fail --no-update
+          extra_args: --github-actions --only-verified --fail --no-update
