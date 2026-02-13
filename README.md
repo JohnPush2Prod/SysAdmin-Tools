@@ -1,8 +1,6 @@
 # SysAdmin-Tools
 
-A collection of useful scripts, tools, and documentation for Systems Administrators, with a strong focus on security, automation, and safe operational practices.
-
----
+A collection of useful scripts, tools, and documentation for Systems Administrators.
 
 ## Security Overview
 
