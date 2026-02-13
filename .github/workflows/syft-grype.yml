@@ -1,5 +1,5 @@
 name: Syft SBOM → Grype Scan
-#
+
 on:
   push:
     branches: [ main ]
