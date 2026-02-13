@@ -2,24 +2,29 @@
 
 A collection of useful scripts, tools, and documentation for Systems Administrators.
 
+---
+
 ## Security Overview
 
-This repository is protected by **defense‑in‑depth security controls** designed to prevent common supply‑chain and credential‑leak risks.
+This repository uses defense-in-depth controls to prevent secret leaks and
+vulnerable dependencies before code reaches main.
 
-### Implemented Controls
+## Enforcement layers
+- Developer workstation (pre-commit / pre-push)
+- CI / Pull requests
+- Nightly scans
 
-- **Secret Prevention (Local + CI)**
-  - TruffleHog runs in **blocking mode** to prevent secrets from being committed or pushed.
-  - Local enforcement via `pre-commit` and `pre-push` hooks.
-  - CI enforcement as a secondary control to catch bypasses.
-
-- **Software Supply Chain Security**
-  - **Syft** generates a Software Bill of Materials (SBOM).
-  - **Grype** scans the SBOM for known vulnerabilities.
-  - Vulnerability findings can fail builds based on severity.
-
-These controls are intentionally enforced **before code reaches `main`** whenever possible.
-
+## Security Controls
+Secrets
+-TruffleHog
+  - Local: blocking via pre-commit
+  - CI: report-only (audit and visibility)
+  - Push/PR diff scans and nightly full repository scans
+  
+Supply Chain
+- Syft: generates Software Bill of Materials (SBOM)
+- Grype: scans SBOMs for known CVEs
+- Runs on push, pull requests, and nightly schedules
 ---
 
 ## Developer Setup (Required)
