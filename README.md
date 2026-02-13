@@ -31,4 +31,4 @@ All contributors must install the required Git hooks.
 
 ```powershell
 pip install pre-commit
-.\scripts\bootstrap-hooks.ps1
+.\DevSetup\bootstrap-hooks.ps1
