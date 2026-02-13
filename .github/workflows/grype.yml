@@ -1,4 +1,4 @@
-name: Vulnerability Scan (Grype)
+name: Vulnerability Scan (Grype via Syft SBOM)
 
 on:
   push:
@@ -10,6 +10,7 @@ on:
 
 permissions:
   contents: read
+  actions: read
 
 jobs:
   grype:
@@ -21,9 +22,25 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Scan repository with Grype
-        uses: anchore/scan-action@v3
+      # 1) Generate SBOM with Syft
+      - name: Generate SBOM (Syft)
+        uses: anchore/sbom-action@v0
         with:
           path: .
+          format: spdx-json
+          output-file: sbom.spdx.json
+
+      # 2) Scan the SBOM with Grype
+      - name: Scan SBOM with Grype
+        uses: anchore/scan-action@v3
+        with:
+          sbom: sbom.spdx.json
           fail-build: true
           severity-cutoff: high
+
+      # Optional: keep SBOM for troubleshooting/audit
+      - name: Upload SBOM artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: sbom
+          path: sbom.spdx.json
