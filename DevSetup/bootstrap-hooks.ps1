@@ -25,7 +25,7 @@ if (-not (Get-Command pre-commit -ErrorAction SilentlyContinue)) {
     Write-Host "Installing pre-commit via pip..." -ForegroundColor Yellow
     pip install pre-commit
 } else {
-    Write-Host "✅ pre-commit already installed"
+    Write-Host "pre-commit already installed"
 }
 
 # ─────────────────────────────────────────────
@@ -43,7 +43,7 @@ Install one of the following:
 "@
     exit 1
 } else {
-    Write-Host "✅ TruffleHog found: $(trufflehog --version)"
+    Write-Host "TruffleHog found: $(trufflehog --version)"
 }
 
 # ─────────────────────────────────────────────
@@ -54,7 +54,7 @@ Write-Host "Installing git hooks with pre-commit..." -ForegroundColor Cyan
 pre-commit install
 pre-commit install --hook-type pre-push
 
-Write-Host "✅ Git hooks installed successfully." -ForegroundColor Green
+Write-Host "Git hooks installed successfully." -ForegroundColor Green
 
 # ─────────────────────────────────────────────
 # Optional: sanity check
