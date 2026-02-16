@@ -17,16 +17,8 @@ Do NOT run this code unless you fully understand what it does and have reviewed 
 This repository **blocks secrets before commit and push**.  
 All contributors must install the required Git hooks.
 
-### One‑Time Setup (Windows)
+### One‑Time Setup (Any OS)
 
-```powershell
-pip install pre-commit
-.\DevSetup\bootstrap-hooks.ps1
 ```
-### One‑Time Setup (Linux)
-
-```Python 
-pip install --user pre-commit
-pre-commit install
-pre-commit install --hook-type pre-push
+./DevSetup/bootstrap-hooks
 ```
