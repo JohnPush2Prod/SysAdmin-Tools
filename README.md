@@ -4,7 +4,7 @@ A collection of useful scripts, tools, and documentation for Systems Administrat
 
 ---
 
-# AI & Content Notice 
+## AI & Content Notice 
 
 Portions of this content have been generated or assisted by AI systems. 
 All AI‑assisted content has be reviewed and approved by a human prior to being commited. 
