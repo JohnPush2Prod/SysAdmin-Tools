@@ -62,4 +62,4 @@ Write-Host "Git hooks installed successfully." -ForegroundColor Green
 Write-Host "Running a quick pre-commit dry run (no changes made)..." -ForegroundColor Cyan
 pre-commit run --all-files || Write-Warning "Pre-commit reported findings (this is expected if secrets exist)."
 
-Write-Host "🎉 Pre-commit setup complete." -ForegroundColor Green
+Write-Host "Pre-commit setup complete." -ForegroundColor Green
