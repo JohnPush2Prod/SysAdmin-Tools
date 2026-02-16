@@ -6,42 +6,31 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: "0 2 * * *"   # nightly
+    - cron: "0 3 * * *"   # nightly (UTC)
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   trufflehog:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout (full history for diff + nightly deep scan)
+      - name: Checkout repository (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      # PR / Push: Diff scan (base..head)
-      - name: TruffleHog (PR/Push diff scan) [report-only]
+      # PR/push scan (diff/commit-range driven by the action)
+      - name: Run TruffleHog (PR/Push)
         if: github.event_name != 'schedule'
         uses: trufflesecurity/trufflehog@main
-        continue-on-error: true
         with:
-          path: .
-          base: ${{ github.event_name == 'pull_request' && github.event.pull_request.base.sha || github.event.before }}
-          head: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
-          extra_args: >
-            --only-verified
-            --json
-            --fail
+          extra_args: --only-verified
 
-      # Nightly: Full history scan (deep scan)
-      - name: TruffleHog (nightly full history scan) [report-only]
+      # Nightly full repo scan
+      - name: Run TruffleHog (full repo)
         if: github.event_name == 'schedule'
         uses: trufflesecurity/trufflehog@main
-        continue-on-error: true
         with:
-          path: .
-          extra_args: >
-            --only-verified
-            --json
-            --fail
+          extra_args: --only-verified --no-history=false
