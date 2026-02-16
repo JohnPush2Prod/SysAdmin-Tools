@@ -1,8 +1,10 @@
 repos:
-  - repo: local
+  - repo: https://github.com/rhysd/actionlint
+    rev: v1.6.24
     hooks:
-      - id: trufflehog-filesystem
-        name: TruffleHog (pre-commit: filesystem/HEAD, BLOCK)
-        entry: trufflehog filesystem .
-        language: system
-        stages: [commit]
+      - id: actionlint
+
+  - repo: https://github.com/mpalmer/action-validator
+    rev: v0.5.1
+    hooks:
+      - id: action-validator
