@@ -20,13 +20,10 @@ All contributors must install the required Git hooks.
 ### One‑Time Setup (Windows)
 
 ```powershell
-pip install pre-commit
 .\DevSetup\bootstrap-hooks.ps1
 ```
 ### One‑Time Setup (Linux)
 
-```Python 
-pip install --user pre-commit
-pre-commit install
-pre-commit install --hook-type pre-push
+```bash
+bash DevSetup/bootstrap-hooks.sh
 ```
