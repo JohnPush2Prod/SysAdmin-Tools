@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Run from the DevSetup directory, even if user runs it from repo root
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+case "$(uname -s)" in
+  Linux|Darwin)
+    ./bootstrap-hooks.sh
+    ;;
+  MINGW*|MSYS*|CYGWIN*)
+    powershell -NoProfile -ExecutionPolicy Bypass -File .\bootstrap-hooks.ps1
+    ;;
+  *)
+    echo "Unsupported OS: $(uname -s)"
+    exit 1
+    ;;
+esac
