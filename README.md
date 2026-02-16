@@ -12,7 +12,7 @@ Files and code in this Repository are provided as-is and may modify system confi
 Do NOT run this code unless you fully understand what it does and have reviewed it for safety, correctness, and suitability for your environment.<br>
 
 ---
-## Developer Setup (Required)
+## Contributor Local Setup (Required)
 
 This repository **blocks secrets before commit and push**.  
 All contributors must install the required Git hooks.
