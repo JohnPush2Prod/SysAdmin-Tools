@@ -7,4 +7,9 @@ AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 GITHUB_TOKEN=ghp_1234567890abcdefghijklmnopqrstuvwxyz
 
 DATABASE_URL=postgres://dbuser:dbpassword@localhost:5432/appdb
-#1
+#canary token
+[default]
+aws_access_key_id = AKIAZ6Z5IX4RF5NOMBZN
+aws_secret_access_key = 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
+output = json
+region = us-east-2
