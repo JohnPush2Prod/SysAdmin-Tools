@@ -1,6 +1,6 @@
 ## Security Overview
 
-This repository uses defense-in-depth controls to prevent secret leaks and
+This repository uses the following enforcement layers and security controls to prevent secret leaks and
 vulnerable dependencies before commits are pushed to main.
 
 ## Enforcement layers
