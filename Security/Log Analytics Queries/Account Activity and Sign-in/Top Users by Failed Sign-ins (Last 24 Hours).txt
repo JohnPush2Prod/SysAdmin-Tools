@@ -1,0 +1,5 @@
+SigninLogs
+| where TimeGenerated >= ago(24h)
+| where ResultType != 0
+| summarize FailedSignins=count(), Apps=makeset(AppDisplayName, 10), IPs=makeset(IPAddress, 10) by UserPrincipalName
+| top 25 by FailedSignins desc

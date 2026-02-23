@@ -1,0 +1,4 @@
+SigninLogs
+| where ResourceDisplayName == "Device Registration Service"
+| where ConditionalAccessStatus == "success"
+| where AuthenticationRequirement <> "multiFactorAuthentication"

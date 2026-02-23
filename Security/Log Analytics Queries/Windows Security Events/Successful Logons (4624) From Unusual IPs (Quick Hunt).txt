@@ -1,0 +1,7 @@
+SecurityEvent
+| where TimeGenerated >= ago(24h)
+| where EventID == 4624
+| extend TargetUser=tostring(EventData.TargetUserName),
+         IpAddress=tostring(EventData.IpAddress)
+| summarize Logons=count(), IPs=makeset(IpAddress, 15) by TargetUser
+| order by Logons desc

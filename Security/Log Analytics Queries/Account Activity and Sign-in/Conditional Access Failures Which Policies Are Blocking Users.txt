@@ -1,0 +1,7 @@
+SigninLogs
+| where TimeGenerated >= ago(24h)
+| mv-expand CAP = ConditionalAccessPolicies
+| extend CAName=tostring(CAP.displayName), CAResult=tostring(CAP.result)
+| where CAResult in ("failure","blocked")
+| summarize Blocks=count(), Apps=makeset(AppDisplayName, 10), Users=dcount(UserPrincipalName) by CAName
+| order by Blocks desc

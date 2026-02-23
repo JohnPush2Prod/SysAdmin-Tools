@@ -1,0 +1,5 @@
+AzureActivity
+| where TimeGenerated >= ago(7d)
+| where OperationNameValue has "MICROSOFT.AUTHORIZATION/ROLEASSIGNMENTS/WRITE"
+| project TimeGenerated, Caller, OperationNameValue, ActivityStatusValue, SubscriptionId, ResourceGroup, Resource
+| order by TimeGenerated desc

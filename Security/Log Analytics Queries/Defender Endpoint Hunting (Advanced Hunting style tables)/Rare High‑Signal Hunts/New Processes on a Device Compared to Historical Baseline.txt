@@ -1,0 +1,11 @@
+let baseline = 14d;
+let recent = 24h;
+let history =
+DeviceProcessEvents
+| where TimeGenerated between (ago(baseline) .. ago(recent))
+| summarize by DeviceName, FileName;
+DeviceProcessEvents
+| where TimeGenerated >= ago(recent)
+| summarize Runs=count() by DeviceName, FileName
+| join kind=leftanti history on DeviceName, FileName
+| order by Runs desc

@@ -1,0 +1,4 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName in~ ("whoami.exe","hostname.exe","ipconfig.exe","net.exe","nltest.exe")
+| project TimeGenerated, DeviceName, AccountName, FileName, ProcessCommandLine

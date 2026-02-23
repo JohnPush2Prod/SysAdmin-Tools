@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName =~ "wmic.exe"
+| where ProcessCommandLine has "process call create"
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine

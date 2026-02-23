@@ -1,0 +1,4 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where ProcessCommandLine has_any ("net user","net localgroup","whoami /groups")
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine

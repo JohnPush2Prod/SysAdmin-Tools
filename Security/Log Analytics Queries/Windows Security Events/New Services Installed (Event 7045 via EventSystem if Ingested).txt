@@ -1,0 +1,6 @@
+Event
+| where TimeGenerated >= ago(7d)
+| where EventLog == "System"
+| where EventID == 7045
+| project TimeGenerated, Computer, RenderedDescription
+| order by TimeGenerated desc

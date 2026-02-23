@@ -1,0 +1,6 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName =~ "rundll32.exe"
+| where ProcessCommandLine !has ".dll"
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine
+| order by TimeGenerated desc

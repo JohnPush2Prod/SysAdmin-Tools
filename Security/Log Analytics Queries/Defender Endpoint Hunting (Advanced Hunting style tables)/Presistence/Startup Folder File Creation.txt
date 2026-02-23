@@ -1,0 +1,5 @@
+DeviceFileEvents
+| where TimeGenerated >= ago(7d)
+| where FolderPath has "Startup"
+| where ActionType == "FileCreated"
+| project TimeGenerated, DeviceName, AccountName, FileName, FolderPath

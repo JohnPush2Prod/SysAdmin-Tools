@@ -1,0 +1,5 @@
+SecurityIncident
+| where TimeGenerated >= ago(14d)
+| extend AssignedTo=tostring(Owner.assignedTo)
+| summarize Incidents=count() by Severity, Status, AssignedTo
+| order by Incidents desc

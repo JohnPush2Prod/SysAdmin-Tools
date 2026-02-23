@@ -1,0 +1,8 @@
+SigninLogs
+| where TimeGenerated >= ago(24h)
+| summarize Countries=makeset(LocationDetails.countryOrRegion, 10),
+            IPs=makeset(IPAddress, 10),
+            Total=count()
+  by UserPrincipalName
+| where array_length(Countries) >= 2
+| order by Total desc

@@ -1,0 +1,6 @@
+DnsEvents
+| where TimeGenerated >= ago(24h)
+| extend TLD = tostring(split(Name, ".")[-1])
+| where TLD in~ ("top","xyz","club","zip","mov")
+| summarize Queries=count(), Devices=dcount(Computer) by TLD, Name
+| order by Queries desc

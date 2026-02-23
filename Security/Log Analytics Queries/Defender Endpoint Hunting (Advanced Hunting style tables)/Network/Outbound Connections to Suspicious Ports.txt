@@ -1,0 +1,4 @@
+DeviceNetworkEvents
+| where TimeGenerated >= ago(24h)
+| where RemotePort in (4444,5555,1337,3389,5985)
+| project TimeGenerated, DeviceName, AccountName, RemoteIp, RemotePort

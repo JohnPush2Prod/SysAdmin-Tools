@@ -1,0 +1,6 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName in~ ("powershell.exe","pwsh.exe")
+| where ProcessCommandLine has_any ("-enc","FromBase64String","IEX","Invoke-WebRequest","DownloadString")
+| project TimeGenerated, DeviceName, AccountName, FileName, ProcessCommandLine, InitiatingProcessFileName
+| order by TimeGenerated desc

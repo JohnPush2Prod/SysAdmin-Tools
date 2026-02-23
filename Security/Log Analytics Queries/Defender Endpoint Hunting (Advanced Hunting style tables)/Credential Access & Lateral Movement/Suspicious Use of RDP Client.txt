@@ -1,0 +1,4 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName =~ "mstsc.exe"
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine

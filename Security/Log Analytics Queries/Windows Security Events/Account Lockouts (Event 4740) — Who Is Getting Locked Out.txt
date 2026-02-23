@@ -1,0 +1,6 @@
+SecurityEvent
+| where TimeGenerated >= ago(24h)
+| where EventID == 4740
+| extend TargetUser=tostring(EventData.TargetUserName)
+| summarize Lockouts=count(), Computers=makeset(Computer, 10) by TargetUser
+| order by Lockouts desc

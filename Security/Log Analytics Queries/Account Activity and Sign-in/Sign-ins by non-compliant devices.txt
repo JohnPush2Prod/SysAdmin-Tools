@@ -1,0 +1,3 @@
+SigninLogs
+| where DeviceDetail.isCompliant == false
+| where ConditionalAccessStatus == "success"

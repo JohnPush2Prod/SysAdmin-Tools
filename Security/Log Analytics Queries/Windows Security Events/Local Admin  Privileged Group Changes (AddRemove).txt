@@ -1,0 +1,8 @@
+SecurityEvent
+| where TimeGenerated >= ago(7d)
+| where EventID in (4728,4729,4732,4733,4756,4757)
+| extend Member=tostring(EventData.MemberName),
+         Actor=Account,
+         Group=tostring(EventData.TargetUserName)
+| summarize Events=count(), Groups=makeset(Group, 10), Actors=makeset(Actor, 10) by Member
+| order by Events desc

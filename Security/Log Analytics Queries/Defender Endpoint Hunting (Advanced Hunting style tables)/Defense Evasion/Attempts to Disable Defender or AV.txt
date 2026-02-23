@@ -1,0 +1,9 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(7d)
+| where ProcessCommandLine has_any (
+  "Set-MpPreference",
+  "DisableRealtimeMonitoring",
+  "Add-MpPreference",
+  "Remove-MpPreference"
+)
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine

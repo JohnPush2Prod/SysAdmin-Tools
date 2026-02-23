@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName in~ ("powershell.exe","pwsh.exe")
+| where ProcessCommandLine has "-enc"
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine

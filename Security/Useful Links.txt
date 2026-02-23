@@ -1,0 +1,92 @@
+--- Malware, URL & File Analysis ---
+
+Virus Total
+https://www.virustotal.com/gui/home/upload
+Allows security teams to submit files for analysis across dozens of antivirus engines and threat intelligence sources to quickly assess whether a file is malicious.
+
+URL Scan 
+URLScan.io
+https://urlscan.io
+Scans and analyzes websites to identify malicious behavior, phishing, and hosting infrastructure.
+
+ANY.RUN
+https://any.run
+Interactive malware sandbox that allows analysts to execute and observe suspicious files and URLs in real time.
+
+Hybrid Analysis
+https://www.hybrid-analysis.com
+Malware analysis service combining static and dynamic analysis to understand file behavior and indicators.
+
+--- Early Detection ---
+
+Canary Tokens
+https://www.canarytokens.org/nest/
+create lightweight deception artifacts (digital tripwires) that trigger alerts when accessed, indicating potential unauthorized access or attacker activity.
+
+--- Network, IP & Infrastructure Intelligence ---
+
+Shodan
+https://www.shodan.io
+Search engine for internet‑exposed devices and services, useful for attack surface discovery and infrastructure reconnaissance.
+
+Censys
+https://search.censys.io
+Internet scanning and asset discovery platform used to identify exposed hosts, certificates, and services.
+
+IP Tracker
+https://www.ip-tracker.org/
+public IP intelligence tool that provides geolocation, ISP, ASN, and DNS details for IP addresses.
+
+Arin
+https://search.arin.net/rdap/
+investigate suspicious IPs, validate network ownership during incident response, and support threat hunting, abuse reporting, and attribution workflows.
+
+Abuse ip Database
+https://www.abuseipdb.com
+Community‑driven database for reporting and checking malicious IP addresses, frequently used for quick reputation checks during triage.
+
+--- Domain & Registration Intelligence --- 
+
+Whois
+https://www.whois.com/whois/
+provides public registration details for domains and IP addresses, including ownership, registrar, nameservers, and registration dates. 
+
+--- Credential & Breach Intelligence ---
+
+Have I Been Pwned
+https://haveibeenpwned.com
+Breach data lookup service used to identify compromised credentials during incident response and investigations.
+
+--- Frameworks, Standards & Knowledge Bases ---
+
+CIS Controls
+https://www.cisecurity.org/controls
+prioritized set of prescriptive cybersecurity best practices designed to protect organizations against the most common and impactful real‑world attacks.
+
+Mitre 
+https://attack.mitre.org/
+knowledge base that documents real‑world adversary tactics and techniques based on observed cyber attacks. 
+MISP (Malware Information Sharing Platform)
+
+--- Threat Intelligence Sharing ---
+
+MISP
+https://www.misp-project.org
+Open‑source platform for sharing, correlating, and operationalizing threat intelligence and IOCs.
+
+--- Jupyter Notebooks ---
+
+Azure-Sentinel-Notebooks
+https://github.com/Azure/Azure-Sentinel-Notebooks/tree/master
+Massive repository for Azure Sentinel Notebooks
+
+--- Open Source ---
+
+Elastic Detection Rules (Open Source)
+https://github.com/elastic/detection-rules
+Community‑maintained detection rules mapped to MITRE ATT&CK for threat detection and hunting
+
+Velociraptor DFIR
+https://www.velociraptor.app
+Open‑source endpoint DFIR tool used for live response, hunting, and forensic collection at scale.
+

@@ -1,0 +1,4 @@
+AADRiskyUsers
+| where TimeGenerated >= ago(7d)
+| summarize RiskEvents=count(), RiskLevels=makeset(RiskLevel, 10) by UserPrincipalName
+| order by RiskEvents desc
