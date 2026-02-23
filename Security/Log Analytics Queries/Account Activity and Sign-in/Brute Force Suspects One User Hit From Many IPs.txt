@@ -1,0 +1,6 @@
+SigninLogs
+| where TimeGenerated >= ago(6h)
+| where ResultType != 0
+| summarize DistinctIPs=dcount(IPAddress), Attempts=count(), IPs=makeset(IPAddress, 15) by UserPrincipalName
+| where DistinctIPs >= 8 and Attempts >= 25
+| order by Attempts desc

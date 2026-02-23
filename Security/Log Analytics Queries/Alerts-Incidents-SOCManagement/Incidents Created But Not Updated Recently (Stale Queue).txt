@@ -1,0 +1,7 @@
+SecurityIncident
+| where TimeGenerated >= ago(30d)
+| where Status !in ("Closed","Resolved")
+| extend LastUpdated=LastModifiedTime
+| where LastUpdated < ago(3d)
+| project TimeGenerated, LastUpdated, IncidentNumber, Title, Severity, Status, Owner
+| order by LastUpdated asc

@@ -1,0 +1,11 @@
+let baseline = 7d;
+let recent = 24h;
+let known =
+DeviceNetworkEvents
+| where TimeGenerated between (ago(baseline) .. ago(recent))
+| summarize by DeviceName, RemoteIp;
+DeviceNetworkEvents
+| where TimeGenerated >= ago(recent)
+| summarize Connections=count() by DeviceName, RemoteIp
+| join kind=leftanti known on DeviceName, RemoteIp
+| order by Connections desc

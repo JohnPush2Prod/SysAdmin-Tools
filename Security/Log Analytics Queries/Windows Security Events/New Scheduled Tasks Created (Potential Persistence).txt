@@ -1,0 +1,6 @@
+SecurityEvent
+| where TimeGenerated >= ago(7d)
+| where EventID == 4698
+| extend TaskName=tostring(EventData.TaskName), Actor=Account
+| summarize Created=count(), Actors=makeset(Actor, 10) by TaskName, Computer
+| order by Created desc

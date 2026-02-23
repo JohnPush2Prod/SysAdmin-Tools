@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName =~ "certutil.exe"
+| where ProcessCommandLine has_any ("-urlcache","-decode","http")
+| project TimeGenerated, DeviceName, AccountName, ProcessCommandLine

@@ -1,0 +1,4 @@
+SecurityAlert
+| where TimeGenerated >= ago(24h)
+| summarize Alerts=count() by Severity
+| order by Alerts desc

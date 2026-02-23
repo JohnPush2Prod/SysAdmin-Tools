@@ -1,0 +1,8 @@
+SecurityEvent
+| where TimeGenerated >= ago(24h)
+| where EventID == 4625
+| extend TargetUser=tostring(EventData.TargetUserName),
+         IpAddress=tostring(EventData.IpAddress),
+         LogonType=tostring(EventData.LogonType)
+| summarize Failures=count(), IPs=makeset(IpAddress, 15), Types=makeset(LogonType, 10) by TargetUser
+| top 25 by Failures desc

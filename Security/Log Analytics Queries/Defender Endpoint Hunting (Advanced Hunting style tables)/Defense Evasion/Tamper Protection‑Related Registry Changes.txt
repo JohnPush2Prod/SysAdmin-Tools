@@ -1,0 +1,4 @@
+DeviceRegistryEvents
+| where TimeGenerated >= ago(7d)
+| where RegistryKey has "Windows Defender"
+| project TimeGenerated, DeviceName, AccountName, RegistryKey, RegistryValueName, RegistryValueData

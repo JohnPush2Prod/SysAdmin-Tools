@@ -1,0 +1,5 @@
+VMConnection
+| where TimeGenerated >= ago(24h)
+| where Direction == "outbound"
+| summarize Connections=count(), DestIPs=dcount(RemoteIp) by Computer
+| top 25 by Connections desc

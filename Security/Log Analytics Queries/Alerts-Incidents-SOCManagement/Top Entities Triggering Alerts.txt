@@ -1,0 +1,4 @@
+SecurityAlert
+| where TimeGenerated >= ago(7d)
+| summarize Alerts=count(), AlertNames=makeset(AlertName, 10) by CompromisedEntity
+| top 25 by Alerts desc

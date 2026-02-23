@@ -1,0 +1,5 @@
+SigninLogs
+| where isempty(DeviceDetail.deviceId)
+| where AuthenticationRequirement == "singleFactorAuthentication"
+| where ResultType == "0"
+| where NetworkLocationDetails == "[]"

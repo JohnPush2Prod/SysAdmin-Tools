@@ -1,0 +1,4 @@
+DeviceNetworkEvents
+| where TimeGenerated >= ago(24h)
+| where InitiatingProcessFileName in~ ("powershell.exe","pwsh.exe")
+| project TimeGenerated, DeviceName, AccountName, RemoteIp, RemoteUrl

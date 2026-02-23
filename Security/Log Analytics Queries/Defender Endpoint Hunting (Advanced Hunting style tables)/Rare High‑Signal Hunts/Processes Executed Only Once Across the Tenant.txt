@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(7d)
+| summarize TotalRuns=count(), Devices=dcount(DeviceName) by FileName
+| where TotalRuns == 1
+| order by FileName

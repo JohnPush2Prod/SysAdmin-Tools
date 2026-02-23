@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName in~ ("powershell.exe","pwsh.exe")
+| where FolderPath has_any ("\\Downloads\\","\\AppData\\","\\Temp\\")
+| project TimeGenerated, DeviceName, AccountName, FolderPath, ProcessCommandLine

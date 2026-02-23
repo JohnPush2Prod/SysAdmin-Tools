@@ -1,0 +1,5 @@
+DeviceProcessEvents
+| where TimeGenerated >= ago(24h)
+| where FileName in~ ("rundll32.exe","regsvr32.exe","mshta.exe","wmic.exe","certutil.exe","bitsadmin.exe")
+| summarize Executions=count(), SampleCmds=makeset(ProcessCommandLine, 5) by FileName
+| order by Executions desc

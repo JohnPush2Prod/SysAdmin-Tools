@@ -1,0 +1,5 @@
+AuditLogs
+| where TimeGenerated >= ago(7d)
+| where OperationName has_any ("Consent to application", "Add app role assignment", "Add OAuth2PermissionGrant")
+| project TimeGenerated, OperationName, InitiatedBy, TargetResources
+| order by TimeGenerated desc

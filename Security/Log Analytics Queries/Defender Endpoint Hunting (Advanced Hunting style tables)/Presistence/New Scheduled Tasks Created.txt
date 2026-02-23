@@ -1,0 +1,5 @@
+DeviceEvents
+| where TimeGenerated >= ago(7d)
+| where ActionType == "ScheduledTaskCreated"
+| project TimeGenerated, DeviceName, AccountName, AdditionalFields
+| order by TimeGenerated desc

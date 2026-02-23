@@ -1,0 +1,7 @@
+DeviceRegistryEvents
+| where TimeGenerated >= ago(7d)
+| where RegistryKey has_any (
+  "\\Software\\Microsoft\\Windows\\CurrentVersion\\Run",
+  "\\Software\\Microsoft\\Windows\\CurrentVersion\\RunOnce"
+)
+| project TimeGenerated, DeviceName, AccountName, RegistryKey, RegistryValueName, RegistryValueData

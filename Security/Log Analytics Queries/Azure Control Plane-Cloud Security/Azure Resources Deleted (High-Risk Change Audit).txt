@@ -1,0 +1,5 @@
+AzureActivity
+| where TimeGenerated >= ago(7d)
+| where OperationNameValue endswith "/DELETE"
+| project TimeGenerated, Caller, OperationNameValue, ActivityStatusValue, ResourceGroup, Resource
+| order by TimeGenerated desc
