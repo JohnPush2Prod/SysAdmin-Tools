@@ -34,4 +34,4 @@ jobs:
         if: github.event_name == 'schedule'
         uses: trufflesecurity/trufflehog@main
         with:
-          extra_args: --only-verified --no-history=false
+          extra_args: --only-verified
