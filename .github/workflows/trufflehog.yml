@@ -23,6 +23,8 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          extra_args: >
+            --json
 
       # PR/push scan (diff/commit-range driven by the action)
       - name: Run TruffleHog (PR/Push)
