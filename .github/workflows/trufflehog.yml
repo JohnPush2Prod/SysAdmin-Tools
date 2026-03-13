@@ -1,9 +1,9 @@
+
 name: TruffleHog Secret Scan
 
 on:
   push:
-    branches: 
-      - main 
+    branches: [main]
   pull_request:
   workflow_dispatch:
   schedule:
@@ -18,24 +18,23 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout repository (full history)
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          extra_args: >
-            --json
 
-      # PR/push scan (diff/commit-range driven by the action)
-      - name: Run TruffleHog (PR/Push)
+      # PR / push scan (diff‑based)
+      - name: Run TruffleHog (PR / Push)
         if: github.event_name != 'schedule'
         uses: trufflesecurity/trufflehog@main
         with:
-          extra_args: --only-verified
+          extra_args: --json --only-verified
 
-      # Nightly full repo scan
-      - name: Run TruffleHog (full repo)
+      # Nightly full repository scan
+      - name: Run TruffleHog (Nightly full repo)
         if: github.event_name == 'schedule'
         uses: trufflesecurity/trufflehog@main
         with:
-          extra_args: --only-verified
+          extra_args: --json --only-verified
