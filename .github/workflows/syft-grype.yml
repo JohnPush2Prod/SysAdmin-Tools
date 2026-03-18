@@ -47,7 +47,7 @@ jobs:
           name: sbom
 
       - name: Scan SBOM with Grype
-        uses: anchore/scan-action@v3
+        uses: anchore/scan-action@v4
         with:
           sbom: sbom.spdx.json
           fail-build: true
