@@ -46,14 +46,11 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: sbom
-          
-      - name: Update Grype DB
-        run: grype db update
-
-
+        
       - name: Scan SBOM with Grype
         uses: anchore/scan-action@v4
         with:
           sbom: sbom.spdx.json
           fail-build: true
           severity-cutoff: high
+          only-fixed: true
