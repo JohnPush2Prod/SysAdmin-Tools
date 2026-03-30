@@ -48,11 +48,11 @@ jobs:
           path: sbom
 
       - name: Scan SBOM with Grype
-        uses: anchore/grype-action@v1
+        uses: anchore/scan-action@v4
         with:
           sbom: sbom/sbom.spdx.json
           output-format: sarif
           fail-build: true
           severity-cutoff: high
           only-fixed: true
-          db-update: true
+          config: .grype.yaml
