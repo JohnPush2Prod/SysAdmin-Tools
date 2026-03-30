@@ -49,8 +49,11 @@ jobs:
 
       - name: Scan SBOM with Grype
         uses: anchore/scan-action@v4
+        env:
+          GRYPE_DB_MAX_AGE: 0
         with:
           sbom-path: sbom/sbom.spdx.json
+          output-format: sarif
           fail-build: true
           severity-cutoff: high
           only-fixed: true
