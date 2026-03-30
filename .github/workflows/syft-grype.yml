@@ -47,12 +47,16 @@ jobs:
           name: sbom
           path: sbom
 
+      - name: Install Grype
+        run: |
+          curl -sSfL https://get.anchore.io/grype | sh -s -- -b /usr/local/bin
+
+      - name: Update Grype DB
+        run: grype db update
+
       - name: Scan SBOM with Grype
-        uses: anchore/scan-action@v4
-        with:
-          sbom: sbom/sbom.spdx.json
-          output-format: sarif
-          fail-build: true
-          severity-cutoff: high
-          only-fixed: true
-          config: .grype.yaml
+        run: |
+          grype sbom:sbom/sbom.spdx.json \
+            --output sarif \
+            --fail-on high \
+            --only-fixed
