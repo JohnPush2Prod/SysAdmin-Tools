@@ -46,6 +46,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: sbom
+          path: sbom.spdx.json
         
       - name: Scan SBOM with Grype
         uses: anchore/scan-action@v4
