@@ -47,6 +47,11 @@ jobs:
           name: sbom
           path: sbom
 
+      - name: Remove preinstalled Grype DB
+        run: |
+          rm -rf ~/.cache/grype
+          rm -rf /home/runner/work/_temp/grype-db
+
       - name: Scan SBOM with Grype
         uses: anchore/scan-action@v4
         env:
@@ -58,3 +63,5 @@ jobs:
           fail-build: true
           severity-cutoff: high
           only-fixed: true
+          add-cpes-if-none: false
+          by-cve: false
