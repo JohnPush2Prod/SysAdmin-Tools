@@ -52,7 +52,7 @@ jobs:
         env:
           GRYPE_DB_MAX_AGE: 0
         with:
-          sbom-path: sbom/sbom.spdx.json
+          sbom: sbom/sbom.spdx.json
           output-format: sarif
           fail-build: true
           severity-cutoff: high
